@@ -1,5 +1,6 @@
 import React from "react";
 import Navbar from "./components/Navbar";
+import Contact from "./pages/Contact";
 
 const App = () => {
   return (
@@ -21,14 +22,7 @@ const App = () => {
             and secure visas — all with guided support built for students.
           </p>
 
-          <div className="mt-6 flex gap-4">
-            <button className="px-5 py-3 bg-blue-500 hover:bg-blue-600 rounded-xl font-medium">
-              Start Free
-            </button>
-            <button className="px-5 py-3 border border-white/20 hover:bg-white/10 rounded-xl">
-              Learn More
-            </button>
-          </div>
+          
 
           <div className="mt-6 text-sm text-gray-500">
             ✔ University Selection • ✔ SOP Help • ✔ Visa Guidance
@@ -48,6 +42,20 @@ const App = () => {
             <li>💰 Scholarship Guidance</li>
           </ul>
         </div>
+      </section>
+
+      {/* CTA */}
+      <section className="px-6 py-20 text-center">
+        <h2 className="text-3xl font-bold">
+          Ready to Study Abroad?
+        </h2>
+        <p className="text-gray-400 mt-3">
+          Start your journey with NextCampus today.
+        </p>
+
+        <button className="mt-6 px-6 py-3 bg-blue-500 hover:bg-blue-600 rounded-xl font-medium">
+          Get Started Now
+        </button>
       </section>
 
       {/* SERVICES */}
@@ -81,42 +89,15 @@ const App = () => {
         </div>
       </section>
 
-      {/* HOW IT WORKS */}
-      <section id="how" className="px-6 py-16 bg-white/5 border-y border-white/10">
-        <h2 className="text-2xl font-bold text-center">How It Works</h2>
+      
+      
 
-        <div className="grid md:grid-cols-3 gap-6 mt-10 text-center">
-          {[
-            ["1️⃣", "Sign Up", "Create your student profile"],
-            ["2️⃣", "Get Guidance", "We match you with best options"],
-            ["3️⃣", "Apply Abroad", "We support your application process"],
-          ].map(([step, title, desc]) => (
-            <div key={title} className="p-6">
-              <div className="text-3xl">{step}</div>
-              <h3 className="mt-3 font-semibold">{title}</h3>
-              <p className="text-sm text-gray-400 mt-2">{desc}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="px-6 py-20 text-center">
-        <h2 className="text-3xl font-bold">
-          Ready to Study Abroad?
-        </h2>
-        <p className="text-gray-400 mt-3">
-          Start your journey with NextCampus today.
-        </p>
-
-        <button className="mt-6 px-6 py-3 bg-blue-500 hover:bg-blue-600 rounded-xl font-medium">
-          Get Started Now
-        </button>
-      </section>
+      {/* Contact */}
+      <Contact />
 
       {/* FOOTER */}
       <footer className="px-6 py-6 text-center text-gray-500 border-t border-white/10">
-        © {new Date().getFullYear()} NextCampus. All rights reserved.
+        © 2026 UXDesignBD. All rights reserved.
       </footer>
     </div>
   );

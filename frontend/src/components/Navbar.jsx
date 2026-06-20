@@ -17,9 +17,7 @@ const Navbar = () => {
           <a href="#services" className="hover:text-white transition">
             Services
           </a>
-          <a href="#how" className="hover:text-white transition">
-            How it works
-          </a>
+          
           <a href="#contact" className="hover:text-white transition">
             Contact
           </a>
@@ -44,9 +42,7 @@ const Navbar = () => {
           <a href="#services" onClick={() => setOpen(false)}>
             Services
           </a>
-          <a href="#how" onClick={() => setOpen(false)}>
-            How it works
-          </a>
+          
           <a href="#contact" onClick={() => setOpen(false)}>
             Contact
           </a>
