@@ -220,80 +220,89 @@ const CountrySelection = ({ selectedCountry, onSelectCountry }) => {
       )}
 
       {/* Grid List */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {countries.map((countryItem) => {
-          const isSelected = selectedCountry && selectedCountry.id === countryItem.id;
-          const isCustom = countryItem.id.startsWith("custom-");
+      {countries.length > 0 ? (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {countries.map((countryItem) => {
+            const isSelected = selectedCountry && selectedCountry.id === countryItem.id;
+            const isCustom = countryItem.id.startsWith("custom-");
 
-          return (
-            <div
-              key={countryItem.id}
-              onClick={() => onSelectCountry(countryItem)}
-              className={`group relative overflow-hidden flex flex-col justify-between bg-white/5 border rounded-3xl p-6 cursor-pointer hover:bg-white/10 hover:-translate-y-1 transition-all duration-300 ${
-                isSelected ? "border-blue-500 bg-blue-900/10" : "border-white/10"
-              }`}
-            >
-              {/* Card border shine */}
-              {isSelected && (
-                <div className="absolute top-0 right-0 bg-blue-500 text-white text-[10px] uppercase font-bold tracking-widest px-3 py-1 rounded-bl-xl border-l border-b border-blue-500/20">
-                  Selected ✓
+            return (
+              <div
+                key={countryItem.id}
+                onClick={() => onSelectCountry(countryItem)}
+                className={`group relative overflow-hidden flex flex-col justify-between bg-white/5 border rounded-3xl p-6 cursor-pointer hover:bg-white/10 hover:-translate-y-1 transition-all duration-300 ${
+                  isSelected ? "border-blue-500 bg-blue-900/10" : "border-white/10"
+                }`}
+              >
+                {/* Card border shine */}
+                {isSelected && (
+                  <div className="absolute top-0 right-0 bg-blue-500 text-white text-[10px] uppercase font-bold tracking-widest px-3 py-1 rounded-bl-xl border-l border-b border-blue-500/20">
+                    Selected ✓
+                  </div>
+                )}
+
+                <div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-4xl filter drop-shadow">{countryItem.flag}</span>
+                    {isCustom && (
+                      <button
+                        onClick={(e) => handleRemoveCustom(countryItem.id, e)}
+                        className="text-gray-400 hover:text-rose-400 p-1.5 hover:bg-white/5 rounded-lg transition"
+                        title="Remove Custom Country"
+                      >
+                        🗑️
+                      </button>
+                    )}
+                  </div>
+
+                  <h3 className="text-xl font-bold mt-4 group-hover:text-blue-300 transition-colors">
+                    {countryItem.name}
+                  </h3>
+                  <p className="text-gray-400 text-xs mt-2 line-clamp-2 italic">
+                    {countryItem.description}
+                  </p>
+
+                  {/* Quick Info Grid */}
+                  <div className="mt-6 space-y-2 border-t border-white/5 pt-4 text-xs">
+                    <div className="flex justify-between">
+                      <span className="text-gray-400">Visa:</span>
+                      <span className="text-gray-200 font-medium truncate max-w-[150px]">{countryItem.visaType}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-gray-400">Processing:</span>
+                      <span className="text-gray-200 font-medium">{countryItem.processingTime}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-gray-400">Cost:</span>
+                      <span className="text-gray-200 font-medium truncate max-w-[150px]">{countryItem.avgCost}</span>
+                    </div>
+                  </div>
                 </div>
-              )}
 
-              <div>
-                <div className="flex items-center justify-between">
-                  <span className="text-4xl filter drop-shadow">{countryItem.flag}</span>
-                  {isCustom && (
-                    <button
-                      onClick={(e) => handleRemoveCustom(countryItem.id, e)}
-                      className="text-gray-400 hover:text-rose-400 p-1.5 hover:bg-white/5 rounded-lg transition"
-                      title="Remove Custom Country"
-                    >
-                      🗑️
-                    </button>
+                <div className="mt-6 pt-4 border-t border-white/5 flex flex-wrap gap-1">
+                  {countryItem.requirements && countryItem.requirements.slice(0, 2).map((req, idx) => (
+                    <span key={idx} className="text-[10px] px-2 py-0.5 bg-white/5 border border-white/5 rounded-full text-gray-400">
+                      {req}
+                    </span>
+                  ))}
+                  {countryItem.requirements && countryItem.requirements.length > 2 && (
+                    <span className="text-[10px] px-2 py-0.5 text-gray-500">
+                      +{countryItem.requirements.length - 2} more
+                    </span>
                   )}
                 </div>
-
-                <h3 className="text-xl font-bold mt-4 group-hover:text-blue-300 transition-colors">
-                  {countryItem.name}
-                </h3>
-                <p className="text-gray-400 text-xs mt-2 line-clamp-2 italic">
-                  {countryItem.description}
-                </p>
-
-                {/* Quick Info Grid */}
-                <div className="mt-6 space-y-2 border-t border-white/5 pt-4 text-xs">
-                  <div className="flex justify-between">
-                    <span className="text-gray-400">Visa:</span>
-                    <span className="text-gray-200 font-medium truncate max-w-[150px]">{countryItem.visaType}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-400">Processing:</span>
-                    <span className="text-gray-200 font-medium">{countryItem.processingTime}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-400">Cost:</span>
-                    <span className="text-gray-200 font-medium truncate max-w-[150px]">{countryItem.avgCost}</span>
-                  </div>
-                </div>
               </div>
-
-              <div className="mt-6 pt-4 border-t border-white/5 flex flex-wrap gap-1">
-                {countryItem.requirements && countryItem.requirements.slice(0, 2).map((req, idx) => (
-                  <span key={idx} className="text-[10px] px-2 py-0.5 bg-white/5 border border-white/5 rounded-full text-gray-400">
-                    {req}
-                  </span>
-                ))}
-                {countryItem.requirements && countryItem.requirements.length > 2 && (
-                  <span className="text-[10px] px-2 py-0.5 text-gray-500">
-                    +{countryItem.requirements.length - 2} more
-                  </span>
-                )}
-              </div>
-            </div>
-          );
-        })}
-      </div>
+            );
+          })}
+        </div>
+      ) : (
+        <div className="py-16 text-center space-y-4 bg-white/5 border border-white/10 rounded-2xl">
+          <div className="text-5xl">🧭</div>
+          <p className="text-gray-400 text-sm max-w-sm mx-auto">
+            No target destination countries registered. Click "＋ Add Custom Country" above to add your own destination options!
+          </p>
+        </div>
+      )}
     </div>
   );
 };

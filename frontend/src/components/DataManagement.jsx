@@ -85,13 +85,13 @@ const DataManagement = ({ onImportData, onResetData }) => {
   const handleResetClick = () => {
     if (
       window.confirm(
-        "⚠️ WARNING: This will erase all of your progress, custom scholarships, checklist items, and todos, and reset to default starter settings. Are you sure?"
+        "⚠️ WARNING: This will erase all of your progress, custom scholarships, checklist items, and todos, and reset to a clean empty database. Are you sure?"
       )
     ) {
       onResetData();
       setImportStatus({
         success: true,
-        message: "Database has been reset to default templates."
+        message: "Database has been reset and cleared."
       });
     }
   };
@@ -163,19 +163,18 @@ const DataManagement = ({ onImportData, onResetData }) => {
         </div>
       )}
 
-      {/* Danger Zone */}
       <div className="bg-rose-950/20 border border-rose-500/20 rounded-2xl p-6 space-y-4">
         <h3 className="text-lg font-bold text-rose-300 flex items-center gap-2">
           <span>⚠️</span> Danger Zone
         </h3>
         <p className="text-gray-400 text-xs leading-relaxed">
-          Clear all application progress and custom data points. This resets the local database back to default starter templates.
+          Clear all application progress and custom data points. This resets the local database back to a clean empty state.
         </p>
         <button
           onClick={handleResetClick}
           className="px-4 py-2 bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 border border-rose-500/30 rounded-xl text-sm font-semibold transition"
         >
-          Reset Database & Load Templates
+          Reset Database & Clear All
         </button>
       </div>
     </div>

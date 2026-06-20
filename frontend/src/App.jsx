@@ -8,6 +8,53 @@ import {
   DEFAULT_TODOS
 } from "./utils/starterData";
 
+// One-time cleanup of old default dummy data from localStorage
+const runDummyDataCleanup = () => {
+  const clearedKey = "nextcampus_dummy_cleared_v1";
+  if (localStorage.getItem(clearedKey)) return;
+
+  // Cleanup scholarships
+  const savedScholarships = localStorage.getItem("nextcampus_scholarships");
+  if (savedScholarships) {
+    try {
+      const parsed = JSON.parse(savedScholarships);
+      const filtered = parsed.filter(s => s.isCustom === true);
+      localStorage.setItem("nextcampus_scholarships", JSON.stringify(filtered));
+    } catch (e) {
+      localStorage.removeItem("nextcampus_scholarships");
+    }
+  }
+
+  // Cleanup requirements
+  const savedRequirements = localStorage.getItem("nextcampus_requirements");
+  if (savedRequirements) {
+    try {
+      const parsed = JSON.parse(savedRequirements);
+      const filtered = parsed.filter(r => r.isCustom === true);
+      localStorage.setItem("nextcampus_requirements", JSON.stringify(filtered));
+    } catch (e) {
+      localStorage.removeItem("nextcampus_requirements");
+    }
+  }
+
+  // Cleanup todos
+  const savedTodos = localStorage.getItem("nextcampus_todos");
+  if (savedTodos) {
+    try {
+      const parsed = JSON.parse(savedTodos);
+      const dummyIds = ["td-1", "td-2", "td-3", "td-4"];
+      const filtered = parsed.filter(t => !dummyIds.includes(t.id));
+      localStorage.setItem("nextcampus_todos", JSON.stringify(filtered));
+    } catch (e) {
+      localStorage.removeItem("nextcampus_todos");
+    }
+  }
+
+  localStorage.setItem(clearedKey, "true");
+};
+
+runDummyDataCleanup();
+
 const App = () => {
   // Navigation View State
   const [view, setView] = useState("landing");
