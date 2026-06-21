@@ -5,7 +5,8 @@ import Panel from "./components/Panel";
 import {
   DEFAULT_SCHOLARSHIPS,
   DEFAULT_REQUIREMENTS,
-  DEFAULT_TODOS
+  DEFAULT_TODOS,
+  DEFAULT_EMAILS
 } from "./utils/starterData";
 
 // One-time cleanup of old default dummy data from localStorage
@@ -85,6 +86,11 @@ const App = () => {
     return saved ? JSON.parse(saved) : DEFAULT_TODOS;
   });
 
+  const [emails, setEmails] = useState(() => {
+    const saved = localStorage.getItem("nextcampus_emails");
+    return saved ? JSON.parse(saved) : DEFAULT_EMAILS;
+  });
+
   // Sync state modifications to localStorage
   useEffect(() => {
     localStorage.setItem("nextcampus_country", JSON.stringify(country));
@@ -106,6 +112,10 @@ const App = () => {
     localStorage.setItem("nextcampus_todos", JSON.stringify(todos));
   }, [todos]);
 
+  useEffect(() => {
+    localStorage.setItem("nextcampus_emails", JSON.stringify(emails));
+  }, [emails]);
+
   // Import Database Handler
   const handleImportData = (data) => {
     if (data.country !== undefined) setCountry(data.country);
@@ -113,6 +123,7 @@ const App = () => {
     if (data.agencies) setAgencies(data.agencies);
     if (data.requirements) setRequirements(data.requirements);
     if (data.todos) setTodos(data.todos);
+    if (data.emails) setEmails(data.emails);
     if (data.customCountries) {
       localStorage.setItem("nextcampus_custom_countries", JSON.stringify(data.customCountries));
     }
@@ -125,6 +136,7 @@ const App = () => {
     setAgencies([]);
     setRequirements(DEFAULT_REQUIREMENTS);
     setTodos(DEFAULT_TODOS);
+    setEmails(DEFAULT_EMAILS);
     localStorage.removeItem("nextcampus_custom_countries");
   };
 
@@ -252,6 +264,8 @@ const App = () => {
             onUpdateRequirements={setRequirements}
             todos={todos}
             onUpdateTodos={setTodos}
+            emails={emails}
+            onUpdateEmails={setEmails}
             onImportData={handleImportData}
             onResetData={handleResetData}
             onNavigateHome={() => setView("landing")}

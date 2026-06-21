@@ -22,6 +22,9 @@ const DataManagement = ({ onImportData, onResetData }) => {
       todos: localStorage.getItem("nextcampus_todos") 
         ? JSON.parse(localStorage.getItem("nextcampus_todos")) 
         : [],
+      emails: localStorage.getItem("nextcampus_emails")
+        ? JSON.parse(localStorage.getItem("nextcampus_emails"))
+        : [],
       customCountries: localStorage.getItem("nextcampus_custom_countries")
         ? JSON.parse(localStorage.getItem("nextcampus_custom_countries"))
         : []
@@ -60,6 +63,10 @@ const DataManagement = ({ onImportData, onResetData }) => {
           !("todos" in parsed)
         ) {
           throw new Error("Invalid file schema. Backup is missing vital fields.");
+        }
+
+        if (!("emails" in parsed)) {
+          parsed.emails = [];
         }
 
         // Call the parent import handler to reload states

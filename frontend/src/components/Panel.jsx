@@ -6,6 +6,7 @@ import AgencyChecklist from "./AgencyChecklist";
 import RequirementsChecklist from "./RequirementsChecklist";
 import TodoList from "./TodoList";
 import DataManagement from "./DataManagement";
+import EmailList from "./EmailList";
 
 const Panel = ({
   country,
@@ -18,6 +19,8 @@ const Panel = ({
   onUpdateRequirements,
   todos,
   onUpdateTodos,
+  emails,
+  onUpdateEmails,
   onImportData,
   onResetData,
   onNavigateHome
@@ -32,6 +35,7 @@ const Panel = ({
     { id: "agency", label: "Agency Checklist", icon: "🤝" },
     { id: "requirements", label: "Requirements List", icon: "📋" },
     { id: "todo", label: "Todo Action List", icon: "📌" },
+    { id: "emails", label: "Email Contacts", icon: "✉️" },
     { id: "storage", label: "Storage & Settings", icon: "⚙️" }
   ];
 
@@ -77,6 +81,13 @@ const Panel = ({
             onUpdateTodos={onUpdateTodos}
           />
         );
+      case "emails":
+        return (
+          <EmailList
+            emails={emails}
+            onUpdateEmails={onUpdateEmails}
+          />
+        );
       case "storage":
         return (
           <DataManagement
@@ -96,6 +107,7 @@ const Panel = ({
             agencies={agencies}
             requirements={requirements}
             todos={todos}
+            emails={emails}
             onNavigate={setActiveTab}
           />
         );

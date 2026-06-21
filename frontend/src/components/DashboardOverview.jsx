@@ -6,6 +6,7 @@ const DashboardOverview = ({
   agencies,
   requirements,
   todos,
+  emails = [],
   onNavigate
 }) => {
   // Calculate completion percentages
@@ -24,6 +25,11 @@ const DashboardOverview = ({
   const offeredCount = scholarships.filter(s => s.status === "Offered").length;
 
   const hiredAgencies = agencies.filter(a => a.status === "Hired");
+
+  const totalEmails = emails.length;
+  const sentEmails = emails.filter(e => e.status !== "Draft / Not Sent").length;
+  const responseEmails = emails.filter(e => e.status === "Response Received").length;
+  const emailPercent = totalEmails > 0 ? Math.round((sentEmails / totalEmails) * 100) : 0;
 
   // Get next deadlines (from scholarships and todos)
   const getDeadlines = () => {
@@ -107,7 +113,7 @@ const DashboardOverview = ({
       </div>
 
       {/* Progress Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {/* Requirements Progress */}
         <div className="bg-white/5 border border-white/10 p-6 rounded-2xl flex items-center justify-between gap-4">
           <div className="space-y-1">
@@ -162,6 +168,44 @@ const DashboardOverview = ({
           </div>
           <div className="w-16 h-16 bg-purple-500/10 border border-purple-500/20 rounded-2xl flex items-center justify-center text-3xl">
             🎓
+          </div>
+        </div>
+
+        {/* Email Outreach */}
+        <div className="bg-white/5 border border-white/10 p-6 rounded-2xl flex items-center justify-between gap-4">
+          <div className="space-y-1">
+            <h3 className="text-gray-400 text-sm font-medium">Email Outreach</h3>
+            <div className="flex items-baseline gap-2">
+              <span className="text-3xl font-extrabold text-white">{sentEmails}</span>
+              <span className="text-gray-500 text-sm">/ {totalEmails} sent</span>
+            </div>
+            <div className="text-xs text-gray-500 pt-2">
+              {responseEmails} replies • {totalEmails - sentEmails} drafts
+            </div>
+          </div>
+          <div className="relative w-20 h-20 flex items-center justify-center">
+            <svg className="w-full h-full transform -rotate-90">
+              <circle
+                cx="40"
+                cy="40"
+                r="34"
+                className="stroke-white/5"
+                strokeWidth="6"
+                fill="transparent"
+              />
+              <circle
+                cx="40"
+                cy="40"
+                r="34"
+                className="stroke-blue-400 transition-all duration-500"
+                strokeWidth="6"
+                fill="transparent"
+                strokeDasharray={2 * Math.PI * 34}
+                strokeDashoffset={2 * Math.PI * 34 * (1 - emailPercent / 100)}
+                strokeLinecap="round"
+              />
+            </svg>
+            <span className="absolute text-sm font-bold text-blue-400">{emailPercent}%</span>
           </div>
         </div>
 
